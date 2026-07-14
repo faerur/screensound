@@ -1,10 +1,12 @@
 package br.com.alura.projeto.screensound;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 import org.springframework.stereotype.Component;
 
 import br.com.alura.projeto.screensound.domain.model.Artista;
+import br.com.alura.projeto.screensound.domain.model.Musica;
 import br.com.alura.projeto.screensound.domain.model.Tipo;
 import br.com.alura.projeto.screensound.domain.repository.ArtistaRepository;
 import br.com.alura.projeto.screensound.domain.repository.MusicaRepository;
@@ -61,13 +63,18 @@ public class Principal {
   }
 
   private void pesquisarDadosSobreUmArtista() {
+    System.out.println("Informe o nome do artista: ");
+    scanner.nextLine();
     String artista = scanner.nextLine();
     System.out.println(ConsultarGemini.obterInformacoesArtista(artista));
 
   }
 
   private void buscarMusicasPorArtistas() {
-
+    System.out.println("As músicas de qual artista deseja consultar? ");
+    scanner.nextLine();
+    String nome = scanner.nextLine();
+    artistaRepository.consultarMusicasPorArtista(nome).forEach(m -> System.out.println("Música: " + m.getNome()));
   }
 
   private void listarMusicas() {
@@ -75,7 +82,17 @@ public class Principal {
   }
 
   private void cadastrarMusica() {
-
+    System.out.println("Informe o nome da música: ");
+    scanner.nextLine();
+    String nomeMusica = scanner.nextLine();
+    System.out.println("Informe o nome do artista: ");
+    String nomeArtista = scanner.nextLine();
+    Optional<Artista> artista = artistaRepository.findByNome(nomeArtista);
+    if (artista.isPresent()) {
+      Musica musica = new Musica(nomeMusica, artista.get());
+      musicaRepository.save(musica);
+    }
+    throw new RuntimeException("Artista não encontrado!");
   }
 
   private void cadastrarArtistas() {

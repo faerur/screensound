@@ -24,8 +24,7 @@ public class Musica {
   public Musica() {
   }
 
-  public Musica(Long id, String nome, Artista artista) {
-    this.id = id;
+  public Musica(String nome, Artista artista) {
     this.nome = nome;
     this.artista = artista;
   }
