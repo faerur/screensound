@@ -2,11 +2,16 @@ package br.com.alura.projeto.screensound.domain.model;
 
 import java.util.List;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "artistas")
 public class Artista {
 
   @Id
@@ -17,16 +22,16 @@ public class Artista {
 
   @Enumerated
   private Tipo tipo;
+
+  @OneToMany(mappedBy = "artista")
   private List<Musica> musicas;
 
   public Artista() {
   }
 
-  public Artista(Long id, String nome, Tipo tipo, List<Musica> musicas) {
-    this.id = id;
+  public Artista(String nome, Tipo tipo) {
     this.nome = nome;
     this.tipo = tipo;
-    this.musicas = musicas;
   }
 
   public Long getId() {

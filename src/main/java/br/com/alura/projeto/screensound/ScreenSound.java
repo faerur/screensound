@@ -9,7 +9,7 @@ public class ScreenSound implements CommandLineRunner {
 
 	private final Principal principal;
 
-	ScreenSound(Principal principal) {
+	public ScreenSound(Principal principal) {
 		this.principal = principal;
 	}
 
@@ -19,7 +19,7 @@ public class ScreenSound implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
+		principal.principal();
 	}
 
 }
